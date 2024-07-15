@@ -1,0 +1,146 @@
+syntax="proto3";
+
+option go_package ="generated/users";
+
+package users;
+
+service AuthService{
+    rpc SignUp(SignUpRequest) returns (SignUpResponse);
+
+    rpc LogIn(LogInRequest) returns (LogInResponse);
+
+    rpc ViewProfile(ViewProfileRequest) returns (ViewProfileResponse);
+
+    rpc EditProfile(EditProfileRequeste) returns (EditProfileResponse);
+
+    rpc ChangeUserType(ChangeUserTypeRequeste) returns (ChangeUserTypeResponse);
+
+    rpc GetAllUsers(GetAllUsersRequest) returns  (GetAllUsersResponse);
+
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+
+    rpc PasswordReset(PasswordResetRequest) returns (PasswordResetResponse);
+
+    rpc TokenGeneration(TokenGenerationRequest) returns (TokenGenerationResponse);
+
+    rpc TokenCancellation(TokenCancellationRequest) returns (TokenCancellationResponse);
+
+}
+
+message SignUpRequest{
+    string user_name=1;
+    string email=2;
+    string password=3;
+    string full_name=4;
+    string user_type=5;
+}
+
+message SignUpResponse{
+    string user_name=1;
+    string email=2;
+    string password=3;
+    string full_name=4;
+    string user_type=5;
+    string created_at=6;
+}
+
+message LogInRequest{
+    string email=1;
+    string password=2;
+}
+
+message LogInResponse{
+    string access_token=1;
+    string refresh_token=2;
+    int64 expires_in=3;
+}
+message ViewProfileRequest{
+    string id=1;
+}
+
+message ViewProfileResponse{
+    string user_name=1;
+    string email=2;
+    string password=3;
+    string full_name=4;
+    string user_type=5;
+    string created_at=6;
+    string updated_at=7;
+}
+
+message EditProfileRequeste{
+    string id=1;
+    string full_name=2;
+    string bio=3;
+}
+
+message EditProfileResponse{
+    string user_name=1;
+    string email=2;
+    string password=3;
+    string full_name=4;
+    string user_type=5;
+    string updated_at=7;
+}
+
+message ChangeUserTypeRequeste{
+    string id=1;
+    string user_type=2;
+}
+
+message ChangeUserTypeResponse{
+    string id=1;
+    string user_name=2;
+    string uset_type=3;
+    string updated_at=4;
+}
+
+message GetAllUsersRequest{
+    int32 offset=3;
+    int32 limit=4;
+}
+
+message GetAllUsersResponse{
+    repeated User users=1;
+    int64 total=2;
+    int32 offset=3;
+    int32 limit=4;
+}
+
+message User{
+    string id=1;
+    string user_name=2;
+    string uset_type=3;
+    string full_name=4;
+}
+
+message DeleteUserRequest{
+    string id=1;
+}
+
+message DeleteUserResponse{
+    string success=1;
+}
+
+message PasswordResetRequest{
+    string email=1;
+}
+
+message PasswordResetResponse{
+    string success=1;
+}
+
+message TokenGenerationRequest{
+    string refresh_token=1;
+}
+message TokenGenerationResponse{
+    string access_token=1;
+    string refresh_token=2;
+    int64 expires_in=3;
+}
+
+message TokenCancellationRequest{}
+
+message TokenCancellationResponse{
+    string success=1;
+}
