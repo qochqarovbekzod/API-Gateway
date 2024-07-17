@@ -1,0 +1,1109 @@
+basePath: /
+definitions:
+  product.CreateCategoryRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    type: object
+  product.CreateCategoryResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  product.CreateOrderRequest:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/product.Item'
+        type: array
+      shipping_address:
+        $ref: '#/definitions/product.ShippingAddress'
+      user_id:
+        type: string
+    type: object
+  product.CreateOrderResponse:
+    properties:
+      creted_at:
+        type: string
+      id:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/product.ItemResponse'
+        type: array
+      shipping_address:
+        $ref: '#/definitions/product.ShippingAddress'
+      status:
+        type: string
+      total_amount:
+        type: number
+      user_id:
+        type: string
+    type: object
+  product.CreatePaymentRequest:
+    properties:
+      card_number:
+        type: string
+      expiry_date:
+        type: string
+      order_id:
+        type: string
+      payment_method:
+        type: string
+      svv:
+        type: string
+    type: object
+  product.CreatePaymentResponse:
+    properties:
+      amount:
+        type: number
+      created_at:
+        type: string
+      order_id:
+        type: string
+      payment_id:
+        type: string
+      payment_method:
+        type: string
+      status:
+        type: string
+      transaction_id:
+        type: string
+    type: object
+  product.CreateProductRequest:
+    properties:
+      category_id:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      quantity:
+        type: integer
+      user_id:
+        type: string
+    type: object
+  product.CreateRatingProductsRequest:
+    properties:
+      comment:
+        type: string
+      product_id:
+        type: string
+      rating:
+        type: number
+      user_id:
+        type: string
+    type: object
+  product.CreateRatingProductsResponse:
+    properties:
+      comment:
+        type: string
+      creted_at:
+        type: string
+      id:
+        type: string
+      product_id:
+        type: string
+      rating:
+        type: number
+      user_id:
+        type: string
+    type: object
+  product.GeTanArtistRatingResponse:
+    properties:
+      rankings:
+        items:
+          $ref: '#/definitions/product.Ranking'
+        type: array
+    type: object
+  product.GetByIdOrderResponse:
+    properties:
+      creted_at:
+        type: string
+      id:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/product.ItemResponse'
+        type: array
+      shipping_address:
+        $ref: '#/definitions/product.ShippingAddress'
+      status:
+        type: string
+      total_amount:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  product.GetProductRatingsResponse:
+    properties:
+      average_rating:
+        type: number
+      retings:
+        items:
+          $ref: '#/definitions/product.CreateRatingProductsResponse'
+        type: array
+      total_rating:
+        type: number
+    type: object
+  product.GetProductRecommendationsResponse:
+    properties:
+      recommendations:
+        items:
+          $ref: '#/definitions/product.Recommendation'
+        type: array
+    type: object
+  product.GetProductResponse:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+      products:
+        items:
+          $ref: '#/definitions/product.Product'
+        type: array
+      total:
+        type: integer
+    type: object
+  product.GetStatisticsResponse:
+    properties:
+      top_products:
+        items:
+          $ref: '#/definitions/product.TopProduct'
+        type: array
+      total_revenue:
+        type: number
+      total_sales:
+        type: integer
+    type: object
+  product.GetallOrderResponse:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+      orders:
+        items:
+          $ref: '#/definitions/product.Order'
+        type: array
+      total:
+        type: integer
+    type: object
+  product.GetallProductsResponse:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+      products:
+        items:
+          $ref: '#/definitions/product.Product'
+        type: array
+      total:
+        type: integer
+    type: object
+  product.GetbyIdProductResponse:
+    properties:
+      category_id:
+        type: string
+      creted_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      quantity:
+        type: integer
+      updated_ad:
+        type: string
+    type: object
+  product.Item:
+    properties:
+      product_id:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  product.ItemResponse:
+    properties:
+      price:
+        type: number
+      product_id:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  product.Order:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      shipping_address:
+        type: string
+      status:
+        type: string
+      total_amount:
+        type: string
+      user_id:
+        type: string
+    type: object
+  product.PaymentStatusResponse:
+    properties:
+      amount:
+        type: number
+      created_at:
+        type: string
+      order_id:
+        type: string
+      payment_id:
+        type: string
+      status:
+        type: string
+      transaction_id:
+        type: string
+    type: object
+  product.Product:
+    properties:
+      category_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  product.Ranking:
+    properties:
+      artisan_id:
+        type: string
+      average_rating:
+        type: number
+      full_name:
+        type: string
+      total_revenue:
+        type: number
+      total_sales:
+        type: integer
+    type: object
+  product.Recommendation:
+    properties:
+      category_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: string
+    type: object
+  product.ShippingAddress:
+    properties:
+      category:
+        type: string
+      city:
+        type: string
+      street:
+        type: string
+      zip_code:
+        type: string
+    type: object
+  product.TopProduct:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      revenume:
+        type: number
+      sales_count:
+        type: integer
+    type: object
+  product.TrackUserActivityResponse:
+    properties:
+      login_count:
+        type: integer
+      orders_placed:
+        type: integer
+      product_views:
+        type: integer
+      reviews_written:
+        type: integer
+      total_spent:
+        type: number
+      user_id:
+        type: string
+    type: object
+  product.UpdateOrderRequest:
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+    type: object
+  product.UpdateOrderResponse:
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  product.UpdateProductRequest:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: string
+    type: object
+host: localhost:8085
+info:
+  contact: {}
+  description: API service
+  version: "1.0"
+paths:
+  /api/v1/artisan-rankings:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve artist ratings with filtering and pagination.
+      parameters:
+      - description: Category
+        in: query
+        name: category
+        required: true
+        type: string
+      - description: Number of items to return
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GeTanArtistRatingResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Artist Ratings
+      tags:
+      - ArtistRatings
+  /api/v1/orders/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of orders with optional filtering and pagination.
+      parameters:
+      - description: Number of items to return
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetallOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get All Orders
+      tags:
+      - Order
+    post:
+      consumes:
+      - application/json
+      description: Create a new order
+      parameters:
+      - description: Create Order
+        in: body
+        name: Create
+        required: true
+        schema:
+          $ref: '#/definitions/product.CreateOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.CreateOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Order
+      tags:
+      - Order
+  /api/v1/orders/{order_id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing order
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Order
+      tags:
+      - Order
+    get:
+      consumes:
+      - application/json
+      description: Get an order by its ID
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetByIdOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Order by ID
+      tags:
+      - Order
+  /api/v1/orders/{order_id}/payment:
+    post:
+      consumes:
+      - application/json
+      description: Create a new payment
+      parameters:
+      - description: Order ID
+        in: path
+        name: order_id
+        required: true
+        type: string
+      - description: Create Payment
+        in: body
+        name: Create
+        required: true
+        schema:
+          $ref: '#/definitions/product.CreatePaymentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.CreatePaymentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Payment
+      tags:
+      - Payment
+  /api/v1/orders/{order_id}/payment-status:
+    get:
+      consumes:
+      - application/json
+      description: Check the status of a payment
+      parameters:
+      - description: Order ID
+        in: path
+        name: order_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.PaymentStatusResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Payment Status
+      tags:
+      - Payment
+  /api/v1/orders/{order_id}/update:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing order
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Order
+        in: body
+        name: Update
+        required: true
+        schema:
+          $ref: '#/definitions/product.UpdateOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.UpdateOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Order
+      tags:
+      - Order
+  /api/v1/product-categories:
+    post:
+      consumes:
+      - application/json
+      description: Create a new category item
+      parameters:
+      - description: Create Category
+        in: body
+        name: Create
+        required: true
+        schema:
+          $ref: '#/definitions/product.CreateCategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.CreateCategoryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Category
+      tags:
+      - Category
+  /api/v1/products/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of Product items with optional filtering and pagination.
+      parameters:
+      - description: Filter by Product item name
+        in: query
+        name: name
+        type: string
+      - description: Filter by Product item description
+        in: query
+        name: description
+        type: string
+      - description: Filter by restaurant ID
+        in: query
+        name: restaurant_id
+        type: string
+      - description: Number of items to return
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      - description: Filter by Product item price
+        in: query
+        name: price
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetallProductsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get All Product
+      tags:
+      - Product
+  /api/v1/products/{product_id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing product item
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Product
+      tags:
+      - Product
+    get:
+      consumes:
+      - application/json
+      description: Get a Product item by its ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetbyIdProductResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Product by ID
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: Update an existing product item
+      parameters:
+      - description: Update Menu
+        in: body
+        name: Update
+        required: true
+        schema:
+          $ref: '#/definitions/product.UpdateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Product
+      tags:
+      - Product
+  /api/v1/products/{product_id}/rating:
+    post:
+      consumes:
+      - application/json
+      description: Create a new rating for a product
+      parameters:
+      - description: Product ID
+        in: path
+        name: product_id
+        required: true
+        type: string
+      - description: Create Rating
+        in: body
+        name: Create
+        required: true
+        schema:
+          $ref: '#/definitions/product.CreateRatingProductsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.CreateRatingProductsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Rating
+      tags:
+      - Rating
+  /api/v1/products/{product_id}/ratings:
+    get:
+      consumes:
+      - application/json
+      description: Get ratings for a product by its ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: product_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetProductRatingsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Ratings by Product ID
+      tags:
+      - Rating
+  /api/v1/products/get:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of orders with optional filtering and pagination.
+      parameters:
+      - description: limit of items to return
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetProductResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Product
+      tags:
+      - Product
+  /api/v1/products/product:
+    post:
+      consumes:
+      - application/json
+      description: Create a new Product item
+      parameters:
+      - description: Create Product
+        in: body
+        name: Create
+        required: true
+        schema:
+          $ref: '#/definitions/product.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Product
+      tags:
+      - Product
+  /api/v1/recommendations:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve product recommendations for a user with optional limit.
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: string
+      - description: Number of items to return
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetProductRecommendationsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Product Recommendations
+      tags:
+      - Recommendations
+  /api/v1/statistics:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve statistics with filtering and pagination.
+      parameters:
+      - description: End date for statistics
+        in: query
+        name: end_date
+        required: true
+        type: string
+      - description: Start date for statistics
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: Filter by payment status
+        in: query
+        name: payment_status
+        type: string
+      - description: Filter by payment method
+        in: query
+        name: payment_method
+        type: string
+      - description: Filter by reservation ID
+        in: query
+        name: reservation_id
+        type: string
+      - description: Filter by amount
+        in: query
+        name: amount
+        type: string
+      - description: Number of items to return
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetStatisticsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get All Statistics
+      tags:
+      - Statistics
+  /api/v1/user-activity/{user_id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve user activity with filtering and pagination.
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: End date for user activity
+        in: query
+        name: end_date
+        required: true
+        type: string
+      - description: Start date for user activity
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: Number of items to return
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.TrackUserActivityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Track User Activity
+      tags:
+      - UserActivity
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

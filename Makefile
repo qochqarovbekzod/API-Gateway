@@ -5,4 +5,4 @@ proto-gen:
 
 
 swag-init:
-	swag init -g api/routes.go --output api/docs
+	swag init -g api/router/router.go --output api/docs

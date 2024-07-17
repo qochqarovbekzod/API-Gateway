@@ -14,10 +14,23 @@ func Parse(id string) bool {
 	return !(err == nil)
 }
 
+// CreateProductHandler handles the creation of a new menu item.
+// @Summary Create Product 
+// @Description Create a new Product item
+// @Tags Product
+// @Accept json
+// @Security BearerAuth
+// @Produce json
+// @Param Create body product.CreateProductRequest true "Create Product"
+// @Success 200 {object} string
+// @Failure 400 {object} string
+// @Failure 500 {object} string
+// @Router /api/v1/products/product [post]
 func (h *Handler) CreateProductHandler(ctx *gin.Context) {
 	var req pb.CreateProductRequest
 
 	if err := ctx.ShouldBind(&req); err != nil {
+		h.Log.Error(err.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
@@ -29,20 +42,34 @@ func (h *Handler) CreateProductHandler(ctx *gin.Context) {
 		})
 	}
 
-	resp, err := h.ProductService.CreateProduct(ctx, &req)
+	resp, err := h.ProductClient.CreateProduct(ctx, &req)
 
 	if err != nil {
+		h.Log.Error(err.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 	}
-
+	h.Log.Info("ishladi")
 	ctx.JSON(http.StatusOK, resp)
 }
 
+// UpdateProductHandler handles the update of a menu item.
+// @Summary Update Product
+// @Description Update an existing product item
+// @Tags Product
+// @Accept json
+// @Security BearerAuth
+// @Produce json
+// @Param Update body product.UpdateProductRequest true "Update Menu"
+// @Success 200 {object} string
+// @Failure 400 {object} string
+// @Failure 500 {object} string
+// @Router /api/v1/products/{product_id} [put]
 func (h *Handler) UpdateProductHandler(ctx *gin.Context) {
 	var req pb.UpdateProductRequest
 	if err := ctx.ShouldBind(&req); err != nil {
+		h.Log.Error(err.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
@@ -54,32 +81,57 @@ func (h *Handler) UpdateProductHandler(ctx *gin.Context) {
 		})
 	}
 
-	resp, err := h.ProductService.UpdateProduct(ctx, &req)
+	resp, err := h.ProductClient.UpdateProduct(ctx, &req)
 	if err != nil {
+		h.Log.Error(err.Error())
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 	}
-
+	h.Log.Info("ishladi")
 	ctx.JSON(http.StatusOK, resp)
 
 }
 
+// DeleteProductHandler handles the deletion of a menu item.
+// @Summary Delete Product
+// @Description Delete an existing product item
+// @Tags Product
+// @Accept json
+// @Security BearerAuth
+// @Produce json
+// @Param id path string true "ID"
+// @Success 200 {object} string
+// @Failure 400 {object} string
+// @Failure 500 {object} string
+// @Router /api/v1/products/{product_id} [delete]
 func (h *Handler) DeleteProductHandler(ctx *gin.Context) {
 	id := ctx.Param("id")
 
-	_, err := h.ProductService.DeleteProduct(ctx, &pb.DeleteProductRequest{Id: id})
+	_, err := h.ProductClient.DeleteProduct(ctx, &pb.DeleteProductRequest{Id: id})
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 	}
-
+	h.Log.Info("ishladi")
 	ctx.JSON(http.StatusOK, "ochirildi")
 
 }
-
+// GetProductHandler retrieves a list of orders with optional filtering and pagination.
+// @Summary Get Product
+// @Description Retrieve a list of orders with optional filtering and pagination.
+// @Tags Product
+// @Security BearerAuth
+// @Accept json
+// @Produce json
+// @Param limit query int false "limit of items to return"
+// @Param offset query int false "Offset for pagination"
+// @Success 200 {object} product.GetProductResponse
+// @Failure 400 {object} string
+// @Failure 500 {object} string
+// @Router /api/v1/products/get [get]
 func (h *Handler) GetProductHandler(ctx *gin.Context) {
 	limit := ctx.Query("limit")
 	offset := ctx.Query("offset")
@@ -89,6 +141,7 @@ func (h *Handler) GetProductHandler(ctx *gin.Context) {
 	if limit != "" {
 		limit2, err = strconv.Atoi(limit)
 		if err != nil {
+			h.Log.Error(err.Error())
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
@@ -100,39 +153,72 @@ func (h *Handler) GetProductHandler(ctx *gin.Context) {
 	if offset != "" {
 		offset2, err = strconv.Atoi(offset)
 		if err != nil {
+			h.Log.Error(err.Error())
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
 		}
 	}
 
-	resp, err := h.ProductService.GetProduct(ctx, &pb.GetProductRequest{
+	resp, err := h.ProductClient.GetProduct(ctx, &pb.GetProductRequest{
 		Limit:  int32(limit2),
 		Offset: int32(offset2),
 	})
 
 	if err != nil {
+		h.Log.Error(err.Error())
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 	}
+	h.Log.Info("ishladi")
 	ctx.JSON(http.StatusOK, resp)
 }
 
+// GetbyIdProductHandler handles the request to fetch a menu item by its ID.
+// @Summary Get Product by ID
+// @Description Get a Product item by its ID
+// @Tags Product
+// @Accept json
+// @Security BearerAuth
+// @Produce json
+// @Param id path string true "ID"
+// @Success 200 {object} product.GetbyIdProductResponse
+// @Failure 400 {object} string
+// @Failure 500 {object} string
+// @Router /api/v1/products/{product_id} [get]
 func (h *Handler) GetbyIdProductHandler(ctx *gin.Context) {
 	id := ctx.Param("id")
 
-	resp, err := h.ProductService.GetbyIdProduct(ctx, &pb.GetbyIdProductRequest{Id: id})
+	resp, err := h.ProductClient.GetbyIdProduct(ctx, &pb.GetbyIdProductRequest{Id: id})
 
 	if err != nil {
+		h.Log.Error(err.Error())
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 	}
-
+	h.Log.Info("ishladi")
 	ctx.JSON(http.StatusOK, resp)
 }
 
+// GetallProducts retrieves a list of menu items with optional filtering and pagination.
+// @Summary Get All Product
+// @Description Retrieve a list of Product items with optional filtering and pagination.
+// @Tags Product
+// @Security BearerAuth
+// @Accept json
+// @Produce json
+// @Param name query string false "Filter by Product item name"
+// @Param description query string false "Filter by Product item description"
+// @Param restaurant_id query string false "Filter by restaurant ID"
+// @Param limit query int false "Number of items to return"
+// @Param offset query int false "Offset for pagination"
+// @Param price query string false "Filter by Product item price"
+// @Success 200 {object} product.GetallProductsResponse
+// @Failure 400 {object} string
+// @Failure 500 {object} string
+// @Router /api/v1/products/ [get]
 func (h *Handler) GetallProducts(ctx *gin.Context) {
 	category := ctx.Query("category")
 	limit := ctx.Query("limit")
@@ -146,6 +232,7 @@ func (h *Handler) GetallProducts(ctx *gin.Context) {
 	if limit != "" {
 		limit2, err = strconv.Atoi(limit)
 		if err != nil {
+			h.Log.Error(err.Error())
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
@@ -157,6 +244,7 @@ func (h *Handler) GetallProducts(ctx *gin.Context) {
 	if offset != "" {
 		offset2, err = strconv.Atoi(offset)
 		if err != nil {
+			h.Log.Error(err.Error())
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
@@ -166,6 +254,7 @@ func (h *Handler) GetallProducts(ctx *gin.Context) {
 	if max_price != "" {
 		max_price2, err = strconv.ParseFloat(max_price, 64)
 		if err != nil {
+			h.Log.Error(err.Error())
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
@@ -175,13 +264,14 @@ func (h *Handler) GetallProducts(ctx *gin.Context) {
 	if min_price != "" {
 		min_price2, err = strconv.ParseFloat(min_price, 64)
 		if err != nil {
+			h.Log.Error(err.Error())
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
 		}
 	}
 
-	resp, err := h.ProductService.GetallProducts(ctx, &pb.GetallProductsRequest{
+	resp, err := h.ProductClient.GetallProducts(ctx, &pb.GetallProductsRequest{
 		Category: category,
 		MinPrice: float32(min_price2),
 		MaxPrice: float32(max_price2),
@@ -190,10 +280,11 @@ func (h *Handler) GetallProducts(ctx *gin.Context) {
 	})
 
 	if err != nil {
+		h.Log.Error(err.Error())
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 	}
-
+	h.Log.Info("ishladi")
 	ctx.JSON(http.StatusOK, resp)
 }

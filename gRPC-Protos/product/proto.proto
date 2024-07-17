@@ -50,11 +50,12 @@ service ProductService{
 }
 
 message CreateProductRequest{
-    string name=1;
-    string description=2;
-    float price=3;
-    string category_id=4;
-    int64 quantity=5;
+    string user_id=1;
+    string name=2;
+    string description=3;
+    float price=4;
+    string category_id=5;
+    int64 quantity=6;
 }
 
 message CreateProductResponse{
